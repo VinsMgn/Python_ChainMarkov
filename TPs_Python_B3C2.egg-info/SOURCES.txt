@@ -1,0 +1,12 @@
+setup.py
+TP-Markov/__init__.py
+TP-Markov/get-pip.py
+TP-Markov/script.py
+TP-genetique/Individu.py
+TP-genetique/Population.py
+TP-genetique/__init__.py
+TP-genetique/main.py
+TPs_Python_B3C2.egg-info/PKG-INFO
+TPs_Python_B3C2.egg-info/SOURCES.txt
+TPs_Python_B3C2.egg-info/dependency_links.txt
+TPs_Python_B3C2.egg-info/top_level.txt
