@@ -64,7 +64,7 @@ def generate(chain):
 
 
 # Exécution du programme principal, ouverture du csv, lecture et parsing du fichier, ajout dans tableau et construction de la chaine
-with open('communes-01042019.csv', encoding='utf8') as csv_file:
+with open('./TP-Markov/communes-01042019.csv', encoding='utf8') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     counterLine = 0
     for row in csv_reader:
