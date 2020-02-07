@@ -6,31 +6,28 @@ from difflib import SequenceMatcher
 
 class Individu:
 
-  def __init__(self, finalWord, defaultValue=None):
+  def __init__(self, targetWord, defaultValue=None):
     super().__init__()
     if defaultValue is not None:
       self.word = defaultValue
     else:
-      self.word = self.__generateWord(len(finalWord))
-    self.genFitness(finalWord)
+      self.word = self.generateWord(len(targetWord))
+    self.generateFitness(targetWord)
 
   
-  def __generateWord(self, length):
-    # letters = string.ascii_lowercase + ' '
+  def generateWord(self, length):
     letters = string.printable
     return ''.join(random.choice(letters) for i in range(length))
 
-  def genFitness(self, finalWord):
-    self.fitness = SequenceMatcher(None, self.word, finalWord).ratio()
-    # arrDiff = [i for i in range(len(self.word)) if self.word[i] != finalWord[i]]
-    # self.fitness = 1 - (len(arrDiff) / len(finalWord))
+  def generateFitness(self, targetWord):
+    self.fitness = SequenceMatcher(None, self.word, targetWord).ratio()
     return self.fitness
 
-  def randomMutate(self, percentage):
+  def randomMutation(self, percentage):
     isMutate = random.random()
     if isMutate < percentage:
       pos = random.randint(0, len(self.word))
       letters = string.ascii_lowercase + ' '
-      old = self.word
+      oldWord = self.word
       self.word = self.word[:pos] + random.choice(letters) + self.word[pos + 1 :]
     return

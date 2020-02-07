@@ -3,31 +3,29 @@ from Population import Population
 from random import seed
 
 # Seed pour bloquer l'aléatoire
-# seed(2)
+# seed(3)
 
-END_WORDS = "Hello"
-NB_INDIVIDUALS = 1000
-SELECTION_RATE_PERCENTAGE = 0.20
-MUTATION_RATE_PERCENTAGE = 0.10
+END_WORDS = "Hello world"
+NB_INDIVIDUAL = 1000
+SELECTION_PERCENTAGE = 0.20
+MUTATION_PERCENTAGE = 0.10
 
 
-def genIndividus():
-  indivus = []
-  for i in range(500):
-    indivus.append(Individu(END_WORDS))
-  return indivus
+def generateIndividus():
+    listOfIndividus = []
+    for i in range(500):
+        listOfIndividus.append(Individu(END_WORDS))
+    return listOfIndividus
+
 
 def main():
-  listIndividus = genIndividus()
-  population = Population(listIndividus, END_WORDS,
-                          NB_INDIVIDUALS, SELECTION_RATE_PERCENTAGE, MUTATION_RATE_PERCENTAGE)
+    listIndividus = generateIndividus()
+    population = Population(listIndividus, END_WORDS,
+                            NB_INDIVIDUAL, SELECTION_PERCENTAGE, MUTATION_PERCENTAGE)
 
+    while population.goodWord() == False:
+        population.iterrate()
+    population.printStep()
 
-  while population.isGood() == False:
-    population.iterrate()
-  population.printStep()
-
-  
 
 main()
-

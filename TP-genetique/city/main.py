@@ -9,23 +9,23 @@ from random import randrange, sample, randint
 
 
 NB_MAX_PERMS = 100
-SELECTION_RATE_PERCENTAGE = 0.20
-MUTATION_RATE_PERCENTAGE = 0.05
+SELECTION_PERCENTAGE = 0.20
+MUTATION_PERCENTAGE = 0.05
 
 
-paris = City('paris', randrange(10), randrange(10))
-londres = City('londres', randrange(10), randrange(10))
-marseille = City('marseille', randrange(10), randrange(10))
-madrid = City('madrid', randrange(10), randrange(10))
-viennes = City('viennes', randrange(10), randrange(10))
-montpellier = City('montpellier', randrange(10), randrange(10))
-nice = City('nice', randrange(10), randrange(10))
-perpignan = City('perpignan', randrange(10), randrange(10))
-clermont = City('clermont', randrange(10), randrange(10))
-toulouse = City('toulouse', randrange(10), randrange(10))
+Bordeaux = City('bordeaux', randrange(10), randrange(10))
+Montpellier = City('montpellier', randrange(10), randrange(10))
+Barcelone = City('barcelone', randrange(10), randrange(10))
+Strasbourg = City('strasbourg', randrange(10), randrange(10))
+Paris = City('paris', randrange(10), randrange(10))
+Londres = City('londres', randrange(10), randrange(10))
+Nantes = City('nantes', randrange(10), randrange(10))
+Nice = City('nice', randrange(10), randrange(10))
+Toulouse = City('toulouse', randrange(10), randrange(10))
+Monaco = City('monaco', randrange(10), randrange(10))
 
-listOfCity = [paris, londres, marseille, madrid, viennes,
-              montpellier]
+listOfCities = [Bordeaux, Montpellier, Paris, Barcelone, Toulouse,
+                Monaco, Nantes, Londres]
 
 
 perms = []
@@ -44,37 +44,36 @@ def generatePerms(a, nbPerm, k=0):
             b[k], b[i] = b[i], b[k]
 
 
-def generateItineraires():
+def generateChemins():
     itineraires = []
     for tuplePerms in perms:
         itineraires.append(Itineraire(tuplePerms))
     return itineraires
 
 
-generatePerms(listOfCity, 1000)
-itineraires = generateItineraires()
+generatePerms(listOfCities, 1000)
+itineraires = generateChemins()
 
 gps = GPS(itineraires, len(itineraires),
-          SELECTION_RATE_PERCENTAGE, MUTATION_RATE_PERCENTAGE, len(listOfCity))
+          SELECTION_PERCENTAGE, MUTATION_PERCENTAGE, len(listOfCities))
 
 
-def connectpoints(x, y, p1, p2, ax):
-    ax.plot([x, p1], [y, p2], 'k-')
+def connectpoints(x, y, point1, point2, ax):
+    ax.plot([x, point1], [y, point2], 'k-')
 
 
 def draw(ax):
-    for city in listOfCity:
+    for city in listOfCities:
         ax.plot(city.x, city.y, 'ro')
 
-    for index in range(len(gps.itineraires[0].trajet)):
-        trajet = gps.itineraires[0].trajet[index]
-        trajetDest = ""
-        if index >= len(gps.itineraires[0].trajet) - 1:
-            trajetDest = gps.itineraires[0].trajet[0]
+    for index in range(len(gps.itineraires[0].chemin)):
+        chemin = gps.itineraires[0].chemin[index]
+        cheminDest = ""
+        if index >= len(gps.itineraires[0].chemin) - 1:
+            cheminDest = gps.itineraires[0].chemin[0]
         else:
-            trajetDest = gps.itineraires[0].trajet[index + 1]
-        connectpoints(trajet.x, trajet.y, trajetDest.x, trajetDest.y, ax)
-
+            cheminDest = gps.itineraires[0].chemin[index + 1]
+        connectpoints(chemin.x, chemin.y, cheminDest.x, cheminDest.y, ax)
 
 
 def plot_cont(xmax):
@@ -85,10 +84,8 @@ def plot_cont(xmax):
         ax.clear()
         gps.iterrate()
         draw(ax)
-        print(i)
     a = anim.FuncAnimation(fig, update, frames=xmax, repeat=False)
     plt.show()
 
 
 plot_cont(50000)
-
